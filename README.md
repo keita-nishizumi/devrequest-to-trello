@@ -1,6 +1,6 @@
-# Foobar
+# Vf Request To Trello
 
-Foobar is a Python library for dealing with word pluralization.
+This is an application that create new card when [V-factory development request form](https://docs.google.com/forms/d/e/1FAIpQLScj3rb05Ze98xs1_LCxBjN1NSjBXXwUyVmbmdUrdHNmj8HU5A/viewform) submitted.
 
 ## Installation
 
