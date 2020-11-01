@@ -6,7 +6,7 @@
 
 Windows PCでの開発環境構築手順を以下に示します。
 
-1. [こちらの記事](https://eng-entrance.com/git-install#Git-2)にしたがってGit及びGit Bashをインストール
+### 1. [こちらの記事](https://eng-entrance.com/git-install#Git-2)にしたがってGit及びGit Bashをインストール
 
 以下コマンドラインによる操作は全てGit Bashを使うことをおすすめします。
 コマンド操作がうまくいかない場合はGit Bashのプロキシの設定をしてみてください。
@@ -16,9 +16,9 @@ git config --global http.proxy http://[ユーザ名]:[パスワード]@webgate.a
 git config --global https.proxy http://[ユーザ名]:[パスワード]@webgate.amadagp.local:8080
 ```
 
-1. [node.js](https://nodejs.org/en/)をインストール
+### 1. [node.js](https://nodejs.org/en/)をインストール
 
-1. [こちらの記事](https://qiita.com/taiponrock/items/9001ae194571feb63a5e)にしたがってnpmをインストール
+### 1. [こちらの記事](https://qiita.com/taiponrock/items/9001ae194571feb63a5e)にしたがってnpmをインストール
 
 Git Bash同様、npmのコマンドがうまくいかない場合はやはりプロキシを設定してみてください。
 
@@ -30,13 +30,13 @@ $ npm -g config set https-proxy http://[ユーザ名]:[パスワード]@webgate.
 npm config list
 ```
 
-1. Google App Script（以下、GAS）専用のCLIであるclaspをインストール
+### 1. Google App Script（以下、GAS）専用のCLIであるclaspをインストール
 
 ```bash
 npm i @google/clasp -g
 ```
 
-1. 初回のみ、claspで自分のGoogleアカウントにログイン
+### 1. 初回のみ、claspで自分のGoogleアカウントにログイン
 
 claspはプロキシ設定不要かもしれません（私の環境では不要でした）。
 
@@ -44,13 +44,13 @@ claspはプロキシ設定不要かもしれません（私の環境では不要
 clasp login
 ```
 
-1. ローカルの任意のディレクトリにこのリポジトリをクローンします
+### 1. ローカルの任意のディレクトリにこのリポジトリをクローンします
 
 ```bash
 git clone https://github.com/keita-nishizumi/vf-request-to-trello.git
 ```
 
-1. `form`ディレクトリと`spread_sheet`ディレクトリのそれぞれの配下に`.clasp.json`というファイルを作成し、スクリプトIDを記載
+### 1. `form`ディレクトリと`spread_sheet`ディレクトリのそれぞれの配下に`.clasp.json`というファイルを作成し、スクリプトIDを記載
 
 
 form/.clasp.json
@@ -64,6 +64,7 @@ spread_sheet/.clasp.json
 ```
 
 ※スクリプトIDは、フォームやスプレッドからスクリプトを開いて、次のクリックパスで確認できます。
+
 ファイル > プロジェクトのプロパティ > スクリプトのプロパティ
 
 ## 編集したコードのデプロイ
