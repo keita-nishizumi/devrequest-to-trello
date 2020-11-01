@@ -13,13 +13,16 @@ const request_list_name = properties.getProperty('request_list_name');
 
 const request_lists = JSON.parse(setProperties());
 
-// 最初の質問の答え（開発を依頼するシステムの選択）が入っている列の番号
-const selected_system_no = 3;
-
-// カード名の列番号
-const title_column_no = 5;
-// カード詳細説明の列番号
-const description_column_no = 6;
+// ---ここから列番号の取得---
+const selected_system_column_no = properties.getProperty('selected_system_column_no');  // 最初の質問の答え（開発を依頼するシステムの選択）が入っている列の番号
+const client_name_column_no = properties.getProperty('client_name_column_no');          // 依頼人氏名の列番号
+const title_column_no = properties.getProperty('title_column_no');                      // カード名の列番号
+const background_column_no = properties.getProperty('background_column_no');            // 背景の記述の列番号
+const stamp_image_column_no = properties.getProperty('stamp_image_column_no');          // 印鑑画像の列番号
+const attachment_file_column_no = properties.getProperty('attachment_file_column_no');  // 添付ファイルの列番号
+const card_link_column_no = properties.getProperty('card_link_column_no');              // カードへのリンクを挿入する列の番号
+const attachment_error_column_no = properties.getProperty('attachment_error_column_no');//添付ファイルのエラー文言を挿入する列の番号
+// ---ここまで列番号の取得---
 
 function setProperties() {
   const boards = getTeamBoards(team_name);
@@ -64,14 +67,14 @@ function addTrelloCard() {
   const sheet = ss.getActiveSheet();
   const last_row = sheet.getLastRow();
 
-  const selected_system = sheet.getRange(last_row, selected_system_no).getValue();
+  const selected_system = sheet.getRange(last_row, selected_system_column_no).getValue();
   const list_id = request_lists.find(list => list.board_name == selected_system).list_id;
   if (!list_id) {
-    sheet.getRange(last_row, 13).setValue('Could not fetch list_id.');
+    sheet.getRange(last_row, card_link_column_no).setValue('Could not fetch list_id.');
     return null;
   }
   const card_title = sheet.getRange(last_row, title_column_no).getValue();
-  const card_description = sheet.getRange(last_row, description_column_no).getValue();
+  const card_description = sheet.getRange(last_row, background_column_no).getValue();
   const url = 'https://api.trello.com/1/cards/?key=' + api_key + '&token=' + api_token;
   const options = {
     'method' : 'post',
@@ -87,6 +90,6 @@ function addTrelloCard() {
   }
   const response = UrlFetchApp.fetch(url, options);
   const response_data = JSON.parse(response.getContentText());
-  sheet.getRange(last_row, 13).setValue(response_data['shortUrl']);
+  sheet.getRange(last_row, card_link_column_no).setValue(response_data['shortUrl']);
 }
 
