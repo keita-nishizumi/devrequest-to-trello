@@ -14,6 +14,9 @@ const request_list_name = properties.getProperty('request_list_name');
 const request_lists = JSON.parse(setProperties());
 
 // ---ここから列番号の取得---
+
+// TODO: ---船曳さん課題その1： 全ての列をスクリプトのプロパティにセットし、列番号をプロパティから取得---
+
 const selected_system_column_no = properties.getProperty('selected_system_column_no');  // 最初の質問の答え（開発を依頼するシステムの選択）が入っている列の番号
 const client_name_column_no = properties.getProperty('client_name_column_no');          // 依頼人氏名の列番号
 const title_column_no = properties.getProperty('title_column_no');                      // カード名の列番号
@@ -100,6 +103,8 @@ function addTrelloCard() {
   if (stamp_image) attachFile(card_id, stamp_image, '印鑑画像');
   if (attachment_file) attachFile(card_id, attachment_file, '補足資料');
 }
+
+// TODO: ---船曳さん課題その2： カードの説明文を生成する関数generateDescription()をここに定義し、addTrelloCard()から呼ぶ---
 
 function attachFile(card_id, file_url, file_name) {
   const url = `https://api.trello.com/1/cards/${card_id}/attachments?key=${api_key}&token=${api_token}&name=${file_name}&url=${file_url}`;
