@@ -91,5 +91,27 @@ function addTrelloCard() {
   const response = UrlFetchApp.fetch(url, options);
   const response_data = JSON.parse(response.getContentText());
   sheet.getRange(last_row, card_link_column_no).setValue(response_data['shortUrl']);
+  Logger.log(response_data);
+
+  // 印鑑画像及び添付ファイルがあるかどうかをチェックし、あれば添付する
+  const card_id = response_data['id'];
+  const stamp_image = sheet.getRange(last_row, stamp_image_column_no).getValue();
+  const attachment_file = sheet.getRange(last_row, attachment_file_column_no).getValue();
+  if (stamp_image) attachFile(card_id, stamp_image, '印鑑画像');
+  if (attachment_file) attachFile(card_id, attachment_file, '補足資料');
 }
 
+function attachFile(card_id, file_url, file_name) {
+  const url = `https://api.trello.com/1/cards/${card_id}/attachments?key=${api_key}&token=${api_token}&name=${file_name}&url=${file_url}`;
+  const options = {
+    'method' : 'post',
+    'muteHttpExceptions' : true,
+    'pauload' : {
+      'name' : file_name,
+      'file' : file_url
+    }
+  }
+  const response = UrlFetchApp.fetch(url, options);
+  const response_data = JSON.parse(response.getContentText());
+  Logger.log(response_data);
+}
