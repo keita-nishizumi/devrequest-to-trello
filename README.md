@@ -6,7 +6,7 @@
 
 Windows PCでの開発環境構築手順を以下に示します。
 
-### 1. [こちらの記事](https://eng-entrance.com/git-install#Git-2)にしたがってGit及びGit Bashをインストール
+1. ### [こちらの記事](https://eng-entrance.com/git-install#Git-2)にしたがってGit及びGit Bashをインストール
 
 以下コマンドラインによる操作は全てGit Bashを使うことをおすすめします。
 コマンド操作がうまくいかない場合はGit Bashのプロキシの設定をしてみてください。
@@ -16,7 +16,7 @@ git config --global http.proxy http://[ユーザ名]:[パスワード]@webgate.a
 git config --global https.proxy http://[ユーザ名]:[パスワード]@webgate.amadagp.local:8080
 ```
 
-### 1. [node.js](https://nodejs.org/en/)をインストール
+1. ### [node.js](https://nodejs.org/en/)をインストール
 
 ### 1. [こちらの記事](https://qiita.com/taiponrock/items/9001ae194571feb63a5e)にしたがってnpmをインストール
 
