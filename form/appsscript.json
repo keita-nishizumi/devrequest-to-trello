@@ -1,6 +1,13 @@
 {
   "timeZone": "Asia/Tokyo",
   "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "SpreadSheetScript",
+        "libraryId": "14CMGIN4uEiUAR4G0_sI8xpvCi-fYNKnE2cTHrZN9b6bTE_m7EKP0IqGC",
+        "version": "1"
+      }
+    ]
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8"

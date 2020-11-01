@@ -63,6 +63,25 @@ spread_sheet/.clasp.json
 {"scriptId":"[スプレッドシートのスクリプトID]"}
 ```
 
+### 8. `form`ディレクトリ配下にappscript.jsonを作成し、スプレッドシートのスクリプトIDを設定
+
+```json
+{
+  "timeZone": "Asia/Tokyo",
+  "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "SpreadSheetScript",
+        "libraryId": "[スプレッドシートのスクリプトID]",
+        "version": "1"
+      }
+    ]
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}
+```
+
 ※スクリプトIDは、フォームやスプレッドからスクリプトを開いて、次のクリックパスで確認できます。
 
 ファイル > プロジェクトのプロパティ
@@ -110,7 +129,11 @@ clasp pull
 
 もし「依頼」以外の文言を使いたい場合は、スクリプトのプロパティで`request_list_name`項目を編集してください。
 
-### 5. フォームをチェックする
+### 5. フォームがスプレッドシートのスクリプトと結び付けられていることを確認する
+
+フォームの
+
+### 6. フォームをチェックする
 
 [V-factory開発依頼書](https://docs.google.com/forms/d/e/1FAIpQLScj3rb05Ze98xs1_LCxBjN1NSjBXXwUyVmbmdUrdHNmj8HU5A/viewform?fbzx=2023867085757586019)へアクセスし、最初の質問「開発を依頼するシステムを選択してください」で、依頼リストをもつボード名が全て表示されていることを確認してください。
 
