@@ -1,22 +1,74 @@
 # Vf Request To Trello
 
-This is an application that create new card when [V-factory development request form](https://docs.google.com/forms/d/e/1FAIpQLScj3rb05Ze98xs1_LCxBjN1NSjBXXwUyVmbmdUrdHNmj8HU5A/viewform) submitted.
+[V-factory開発依頼書](https://docs.google.com/forms/d/e/1FAIpQLScj3rb05Ze98xs1_LCxBjN1NSjBXXwUyVmbmdUrdHNmj8HU5A/viewform)のフォームが送信されると、Trello内の所定のボードの所定のリストにカードを追加する。
 
-## Installation
+## 開発環境構築手順
+
+Windows PCでの開発環境構築手順を以下に示します。
+
+1. [こちらの記事](https://eng-entrance.com/git-install#Git-2)にしたがってGit及びGit Bashをインストール
+
+以下コマンドラインによる操作は全てGit Bashを使うことをおすすめします。
+コマンド操作がうまくいかない場合はGit Bashのプロキシの設定をしてみてください。
+
+```bash
+git config --global http.proxy http://[ユーザ名]:[パスワード]@webgate.amadagp.local:8080
+git config --global https.proxy http://[ユーザ名]:[パスワード]@webgate.amadagp.local:8080
+```
+
+1. [node.js](https://nodejs.org/en/)をインストール
+
+1. [こちらの記事](https://qiita.com/taiponrock/items/9001ae194571feb63a5e)にしたがってnpmをインストール
+
+Git Bash同様、npmのコマンドがうまくいかない場合はやはりプロキシを設定してみてください。
+
+```bash
+$ npm -g config set proxy http://[ユーザ名]:[パスワード]@webgate.amadagp.local:8080/
+$ npm -g config set https-proxy http://[ユーザ名]:[パスワード]@webgate.amadagp.local:8080/
+
+# config確認
+npm config list
+```
+
+1. Google App Script（以下、GAS）専用のCLIであるclaspをインストール
 
 ```bash
 npm i @google/clasp -g
 ```
 
-Please create `.clasp.json` file and input your script ID.
+1. 初回のみ、claspで自分のGoogleアカウントにログイン
 
-```json
-{"scriptId":"[your script ID]"}
+claspはプロキシ設定不要かもしれません（私の環境では不要でした）。
+
+```bash
+clasp login
 ```
 
-## Usage
+1. ローカルの任意のディレクトリにこのリポジトリをクローンします
 
-[V-factory開発依頼書](https://docs.google.com/forms/d/e/1FAIpQLScj3rb05Ze98xs1_LCxBjN1NSjBXXwUyVmbmdUrdHNmj8HU5A/viewform)のフォームが送信されると、Trello内の所定のボードの所定のリストにカードを追加する。
+```bash
+git clone https://github.com/keita-nishizumi/vf-request-to-trello.git
+```
+
+1. `form`ディレクトリと`spread_sheet`ディレクトリのそれぞれの配下に`.clasp.json`というファイルを作成し、スクリプトIDを記載
+
+
+form/.clasp.json
+```json
+{"scriptId":"[フォームのスクリプトID]"}
+```
+
+spread_sheet/.clasp.json
+```json
+{"scriptId":"[スプレッドシートのスクリプトID]"}
+```
+
+※スクリプトIDは、フォームやスプレッドからスクリプトを開いて、次のクリックパスで確認できます。
+ファイル > プロジェクトのプロパティ > スクリプトのプロパティ
+
+## 編集したコードのデプロイ
+
+
 
 TrelloのAPIキーやボード・リストIDはすべてプロジェクトのプロパティにセットしておき、そこから取得しています。
 
