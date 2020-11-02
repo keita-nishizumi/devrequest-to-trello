@@ -72,10 +72,13 @@ function addTrelloCard() {
 
   const selected_system = sheet.getRange(last_row, selected_system_column_no).getValue();
   const list_id = request_lists.find(list => list.board_name == selected_system).list_id;
+
+  //リストIDが取得できなければ強制終了
   if (!list_id) {
     sheet.getRange(last_row, card_link_column_no).setValue('Could not fetch list_id.');
     return null;
   }
+  
   const card_title = sheet.getRange(last_row, title_column_no).getValue();
   const card_description = sheet.getRange(last_row, background_column_no).getValue();
   const url = 'https://api.trello.com/1/cards/?key=' + api_key + '&token=' + api_token;
@@ -106,6 +109,7 @@ function addTrelloCard() {
 
 // TODO: ---船曳さん課題その2： カードの説明文を生成する関数generateDescription()をここに定義し、addTrelloCard()から呼ぶ---
 
+// カードIDとファイルURLを渡すと、カードに指定したファイル名で添付ファイルをつけてくれる関数
 function attachFile(card_id, file_url, file_name) {
   const url = `https://api.trello.com/1/cards/${card_id}/attachments?key=${api_key}&token=${api_token}&name=${file_name}&url=${file_url}`;
   const options = {
