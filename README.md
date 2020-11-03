@@ -1,20 +1,12 @@
-# Vf Request To Trello
+# DevRequest To Trello
 
-[V-factory開発依頼書](https://docs.google.com/forms/d/e/1FAIpQLScj3rb05Ze98xs1_LCxBjN1NSjBXXwUyVmbmdUrdHNmj8HU5A/viewform)のフォームが送信されると、Trello内の所定のボードの所定のリストにカードを追加する。
+[開発依頼書](https://docs.google.com/forms/d/e/1FAIpQLSdg6VoERTJu93CrJagIF5PIgO6rL4Gw7OaolL6DVLcF6-1MXA/viewform)のフォームが送信されると、Trello内の所定のボードの所定のリストにカードを追加する。
 
 ## 開発環境構築手順
 
-Windows PCでの開発環境構築手順を以下に示します。
+### 1. chrome拡張をインストール
 
-### 1. [こちらの記事](https://eng-entrance.com/git-install#Git-2)にしたがってGit及びGit Bashをインストール
-
-以下コマンドラインによる操作は全てGit Bashを使うことをおすすめします。
-コマンド操作がうまくいかない場合はGit Bashのプロキシの設定をしてみてください。
-
-```bash
-git config --global http.proxy http://[ユーザ名]:[パスワード]@webgate.amadagp.local:8080
-git config --global https.proxy http://[ユーザ名]:[パスワード]@webgate.amadagp.local:8080
-```
+[Google Apps Script](https://chrome.google.com/webstore/detail/google-apps-script/eoieeedlomnegifmaghhjnghhmcldobl?hl=ja&hl=ar)
 
 ### 2. [node.js](https://nodejs.org/en/)をインストール
 
@@ -100,13 +92,13 @@ clasp push
 clasp pull
 ```
 
-## 期初のメンテ手順
+## メンテナンス手順
 
 新しいボードが追加されたり、毎年4月にTrelloに新しいチームが作成されたら、以下の手順で「スクリプトのプロパティ」を設定してください。
 
 ### 1. 以下のスプレッドシート（フォームの送信結果が集まるスプレッドシート）にアクセス
 
-[V-factory開発依頼書（回答）](https://docs.google.com/spreadsheets/d/1cmBAS6tyYhg4_yOJ7P1OnxQ8qtl55YrM8lvikEPGgG8/edit#gid=1275307971)
+[開発依頼書（回答）](https://docs.google.com/spreadsheets/d/1I4fNlQpzcrcaFH6lQdGydn_mLKR1K4HPLmdwwr0G-5o/edit?usp=sharing)
 
 ### 2. スクリプトのプロパティを開く
 
@@ -131,11 +123,13 @@ clasp pull
 
 ### 5. フォームがスプレッドシートのスクリプトと結び付けられていることを確認する
 
-フォームの
+フォームの「リソース」から、スプレッドシート側のスクリプトIDを入力し、スクリプトを紐付けます。
 
 ### 6. フォームをチェックする
 
-[V-factory開発依頼書](https://docs.google.com/forms/d/e/1FAIpQLScj3rb05Ze98xs1_LCxBjN1NSjBXXwUyVmbmdUrdHNmj8HU5A/viewform?fbzx=2023867085757586019)へアクセスし、最初の質問「開発を依頼するシステムを選択してください」で、依頼リストをもつボード名が全て表示されていることを確認してください。
+[開発依頼書](https://docs.google.com/forms/d/e/1FAIpQLSdg6VoERTJu93CrJagIF5PIgO6rL4Gw7OaolL6DVLcF6-1MXA/viewform)へアクセスし、最初の質問「開発を依頼するシステムを選択してください」で、依頼リストをもつボード名が全て表示されていることを確認してください。
+※先に下の「トリガー設定」を行っておいてください。
+※うまくいかない場合は何度か更新してみてください。
 
 ## トリガー設定
 
