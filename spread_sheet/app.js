@@ -122,11 +122,11 @@ function addTrelloCard() {
 // フォームの内容を元に、カードのdescriptionにあたるマークダウンの文字列を生成する関数
 function generateDescription(background, required_spec, expected_effect, delivery_date, client_team) {
   const descriptions = [];
-  descriptions.push('### 背景・現状・課題\n\n' + background);
-  descriptions.push('### やりたいこと\n\n' + required_spec);
-  descriptions.push('### 開発によって見込まれる効果\n\n' + expected_effect);
-  descriptions.push('### 希望納期\n\n' + delivery_date);
-  descriptions.push('### 依頼元の担当者\n\n' + client_team);
+  descriptions.push('### 背景・現状・課題\n' + background);
+  descriptions.push('### やりたいこと\n' + required_spec);
+  descriptions.push('### 開発によって見込まれる効果\n' + expected_effect);
+  descriptions.push('### 希望納期\n' + delivery_date);
+  descriptions.push('### 依頼元の担当者\n' + client_team);
   return descriptions.join('\n***\n\n');
 }
 
