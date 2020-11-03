@@ -14,17 +14,18 @@ const request_list_name = properties.getProperty('request_list_name');
 const request_lists = JSON.parse(setProperties());
 
 // ---ここから列番号の取得---
-
-// TODO: ---船曳さん課題その1： 全ての列をスクリプトのプロパティにセットし、列番号をプロパティから取得---
-
-const selected_system_column_no = properties.getProperty('selected_system_column_no');  // 最初の質問の答え（開発を依頼するシステムの選択）が入っている列の番号
-const client_name_column_no = properties.getProperty('client_name_column_no');          // 依頼人氏名の列番号
-const title_column_no = properties.getProperty('title_column_no');                      // カード名の列番号
-const background_column_no = properties.getProperty('background_column_no');            // 背景の記述の列番号
-const stamp_image_column_no = properties.getProperty('stamp_image_column_no');          // 印鑑画像の列番号
-const attachment_file_column_no = properties.getProperty('attachment_file_column_no');  // 添付ファイルの列番号
-const card_link_column_no = properties.getProperty('card_link_column_no');              // カードへのリンクを挿入する列の番号
-const attachment_error_column_no = properties.getProperty('attachment_error_column_no');//添付ファイルのエラー文言を挿入する列の番号
+const selected_system_column_no = properties.getProperty('selected_system_column_no');    // 最初の質問の答え（開発を依頼するシステムの選択）が入っている列の番号
+const client_name_column_no = properties.getProperty('client_name_column_no');            // 依頼人氏名の列番号
+const title_column_no = properties.getProperty('title_column_no');                        // カード名の列番号
+const background_column_no = properties.getProperty('background_column_no');              // 背景の記述の列番号
+const required_spec_column_no = properties.getProperty('required_spec_column_no')         //やりたいことの記述の列番号
+const expected_effect_column_no = properties.getProperty('expected_effect_column_no')     //期待される効果の列番号
+const delivery_date_column_no = properties.getProperty('delivery_date_column_no')         //希望納期の列番号
+const client_team_column_no = properties.getProperty('client_team_column_no')             //依頼元担当者（複数可）の列番号
+const stamp_image_column_no = properties.getProperty('stamp_image_column_no');            // 印鑑画像の列番号
+const attachment_file_column_no = properties.getProperty('attachment_file_column_no');    // 添付ファイルの列番号
+const card_link_column_no = properties.getProperty('card_link_column_no');                // カードへのリンクを挿入する列の番号
+const attachment_error_column_no = properties.getProperty('attachment_error_column_no');  //添付ファイルのエラー文言を挿入する列の番号
 // ---ここまで列番号の取得---
 
 function setProperties() {
@@ -78,15 +79,26 @@ function addTrelloCard() {
     sheet.getRange(last_row, card_link_column_no).setValue('Could not fetch list_id.');
     return null;
   }
-  
+
   const card_title = sheet.getRange(last_row, title_column_no).getValue();
-  const card_description = sheet.getRange(last_row, background_column_no).getValue();
+  const client_name = sheet.getRange(last_row, client_name_column_no).getValue();
+
+  //ここでdescriptionの記述内容を取得
+  const background = sheet.getRange(last_row, background_column_no).getValue();
+  const required_spec = sheet.getRange(last_row, required_spec_column_no).getValue();
+  const expected_effect = sheet.getRange(last_row, expected_effect_column_no).getValue();
+  const delivery_date = sheet.getRange(last_row, delivery_date_column_no).getValue();
+  const client_team = sheet.getRange(last_row, client_team_column_no).getValue();
+
+  // Markdownのdescriptionを生成
+  const card_description = generateDescription(background, required_spec, expected_effect, delivery_date, client_team);
+
   const url = 'https://api.trello.com/1/cards/?key=' + api_key + '&token=' + api_token;
   const options = {
     'method' : 'post',
     'muteHttpExceptions' : true,
     'payload' : {
-      'name'      : card_title,
+      'name'      : card_title + ' #' + client_name,
       'desc'      : card_description,
       'due'       : '',
       'idList'    : list_id,
@@ -107,7 +119,16 @@ function addTrelloCard() {
   if (attachment_file) attachFile(card_id, attachment_file, '補足資料');
 }
 
-// TODO: ---船曳さん課題その2： カードの説明文を生成する関数generateDescription()をここに定義し、addTrelloCard()から呼ぶ---
+// フォームの内容を元に、カードのdescriptionにあたるマークダウンの文字列を生成する関数
+function generateDescription(background, required_spec, expected_effect, delivery_date, client_team) {
+  const descriptions = [];
+  descriptions.push('### 背景・現状・課題\n\n' + background);
+  descriptions.push('### やりたいこと\n\n' + required_spec);
+  descriptions.push('### 開発によって見込まれる効果\n\n' + expected_effect);
+  descriptions.push('### 希望納期\n\n' + delivery_date);
+  descriptions.push('### 依頼元の担当者\n\n' + client_team);
+  return descriptions.join('\n***\n\n');
+}
 
 // カードIDとファイルURLを渡すと、カードに指定したファイル名で添付ファイルをつけてくれる関数
 function attachFile(card_id, file_url, file_name) {
