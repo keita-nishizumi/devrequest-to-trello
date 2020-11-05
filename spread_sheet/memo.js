@@ -1,10 +1,10 @@
-// コードの可読性をあげるため、本来必要のない関数などはこちらに退避する
+// // コードの可読性をあげるため、本来必要のない関数などはこちらに退避する
 
-// ボードID
-const board_id = propaties.getProperty('board_id'); //83期Trello リファレンスボード
+// // ボードID
+// const board_id = propaties.getProperty('board_id'); //83期Trello リファレンスボード
 
-// リストID
-const list_id = propaties.getProperty('list_id'); //[テスト] 開発依頼 ボード
+// // リストID
+// const list_id = propaties.getProperty('list_id'); //[テスト] 開発依頼 ボード
 
 function getBoards() {
   const url = 'https://api.trello.com/1/members/' + user_name + '/boards?key=' + api_key + '&token=' + api_token + '&fields=name';
@@ -55,4 +55,11 @@ function addAllTrelloCards() {
     const response_data = JSON.parse(response.getContentText());
     sheet.getRange(row, 13).setValue(response_data['shortUrl']);
   }
+}
+
+
+// 不要なプロパティを削除したいときはこちら
+function deleteProperties() {
+  PropertiesService.getScriptProperties().deleteProperty('board_id');
+  PropertiesService.getScriptProperties().deleteProperty('list_id');
 }

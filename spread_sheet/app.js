@@ -1,3 +1,20 @@
+// DevRequest To Trello(公開版)
+// プロパティを初期化するときは以下のコメントアウトを外して、logProperties()を実行
+// logProperties();
+
+function logProperties() {
+    const fileIT = DriveApp.getFilesByName('store.json').next();
+    const textdata = fileIT.getBlob().getDataAsString('utf8');
+    const prop_json = JSON.parse(textdata);
+
+    const properties = PropertiesService.getScriptProperties();
+
+    for (let key in prop_json) {
+        properties.setProperty(key, prop_json[key]);
+        Logger.log('key:' + key + ' value:' + properties.getProperty(key));
+    }
+}
+
 //始めに、プロジェクトのプロパティを読み込む
 const properties = PropertiesService.getScriptProperties();
 
